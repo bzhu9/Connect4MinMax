@@ -5,7 +5,7 @@ public class Board {
     private String row2;
     private String row3;
     private ArrayList<String> rows;
-
+    private String row4;
     public Board(){
         row1 = "123";
         row2 = "456";
