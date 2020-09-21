@@ -6,7 +6,6 @@ public class Advanced {
         return myMove;
     }
 
-
     public int minMax(Board board, Mark playerTurn) {
         int maxSoFar = Integer.MIN_VALUE;
         int minSoFar = Integer.MAX_VALUE;
