@@ -13,8 +13,8 @@ public class Advanced {
         Move bestMoveSoFar = new Move();
         ArrayList<Move> moves = new ArrayList<>();
 
-        Mark player = new Mark("O");
-        Mark bot = new Mark("X");
+        Mark player = new Mark("R");
+        Mark bot = new Mark("Y");
 
         Mark empty = new Mark(" ");
         ArrayList<Boolean> winPlayer = new ArrayList<>();
@@ -27,25 +27,11 @@ public class Advanced {
             }
         }
 
-        winPlayer.add(board.checkDiag(1,player));
-        winPlayer.add(board.checkDiag(2,player));
-        for (int i = 1; i < 4; i++) {
-            winPlayer.add(board.checkCol(i,player));
-            winPlayer.add(board.checkRow(i,player));
-        }
 
-        winBot.add(board.checkDiag(1,bot));
-        winBot.add(board.checkDiag(2,bot));
-        for (int i = 1; i < 4; i++) {
-            winBot.add(board.checkCol(i,bot));
-            winBot.add(board.checkRow(i,bot));
-
-        }
-
-        if (winBot.contains(true))
+        if (checkWin("Y"))
             return 10;
 
-        else if (winPlayer.contains(true))
+        else if (checkWin("R"))
             return -10;
 
         else if( !cellFree.contains(true))
@@ -64,7 +50,7 @@ public class Advanced {
 
         for (Move m : moves) {
             board.markMove(m,playerTurn);
-            if (playerTurn.toString().equals("X") ){
+            if (playerTurn.toString().equals("Y") ){
                 int score = minMax(board, player);
                 if (score > maxSoFar) {
                     maxSoFar = score;
@@ -81,7 +67,7 @@ public class Advanced {
         }
 
         myMove = bestMoveSoFar;
-        if (playerTurn.toString().equals("X"))
+        if (playerTurn.toString().equals("Y"))
             return maxSoFar;
         else
             return minSoFar;
