@@ -29,8 +29,6 @@ public class Driver {
 
         while(count <=8){
             if(ranNum == 0){
-                ArrayList<Boolean> winPlayer = new ArrayList<>();
-
                 System.out.print("Please enter column: ");
                 col =  in.nextInt();
                 Move move = new Move(col);
@@ -38,7 +36,7 @@ public class Driver {
                 b.getBoard();
 
 
-                if(checkWin("R")){
+                if(b.checkWin(player)){
                     System.out.println("Player Wins!");
                     break;
                 }
@@ -48,8 +46,6 @@ public class Driver {
                     break;
                 }
 
-
-                ArrayList<Boolean> winBot = new ArrayList<>();
                 System.out.println("Bot Turn");
 
                 System.out.println(proBot.minMax(b,botMark));
@@ -59,15 +55,7 @@ public class Driver {
                 b.getBoard();
 
 
-                winBot.add(b.checkDiag(1,botMark));
-                winBot.add(b.checkDiag(2,botMark));
-                for (int i = 1; i < 4; i++) {
-                    winBot.add(b.checkCol(i,botMark));
-                    winBot.add(b.checkRow(i,botMark));
-
-                }
-
-                if(checkWin("Y")){
+                if(b.checkWin(botMark)){
                     System.out.println("Bot Wins!");
                     break;
                 }
@@ -94,13 +82,13 @@ public class Driver {
 
 
 
-                if(checkWin("Y")){
+                if(b.checkWin(botMark)){
                     System.out.println("Bot Wins!");
                     break;
                 }
                 botCount++;
 
-                if(playerCount+ botCount =42){
+                if(playerCount+ botCount ==42){
                     break;
                 }
 
@@ -111,7 +99,7 @@ public class Driver {
                 b.markMove(move,player);
                 b.getBoard();
 
-                if(checkWin("R")){
+                if(b.checkWin(player)){
                     System.out.println("Player Wins!");
                     break;
                 }
