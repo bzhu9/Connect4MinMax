@@ -54,97 +54,38 @@ public class Board {
     }
 
 
-    public boolean checkRow (int row, Mark mark) {
-
-        if (row < 1 || row > board.length)
-            return false;
-
-
-        for (int col = 0; col < board.length; col++)
-            if (board[row - 1][col] != mark.toString().charAt(0))
-                return false;
-
-
-        return true;
-    }
-
-    public int rowWin (int row, Mark mark) {
-
-        int count= 0;
-
-        for (int col = 0; col < board.length; col++)
-            if (board[row-1][col] == mark.toString().charAt(0))
-                count++;
-
-        return count;
-    }
-
-
-    public boolean checkCol (int col, Mark mark) {
-
-
-        if (col < 1 || col > board.length)
-            return false;
-
-
-        for (int row = 0; row < board.length; row++)
-            if (board[row][col - 1] != mark.toString().charAt(0))
-                return false;
-
-
-        return true;
-    }
-
-    public int colWin (int col, Mark mark) {
-
-        int count= 0;
-
-        for (int row = 0; row < board.length; row++)
-            if (board[row][col-1] == mark.toString().charAt(0))
-                count++;
-
-        return count;
-    }
-
-
-    public boolean checkDiag (int diag, Mark mark) {
-
-        if (diag != 1 && diag != 2)
-            return false;
-
-        if (diag == 1) {
-            for (int diag1 = 0; diag1 < board.length; diag1++)
-                if (board[diag1][diag1] != mark.toString().charAt(0))
+    private boolean checkRows (Mark mark) {
+        for (int row = 0; row < 4; row++) {
+            for (int col = 0; col < board.length; col++)
+                if (board[row][col] != mark.toString().charAt(0))
                     return false;
-        } else
-
-            for (int diag2 = 0; diag2 < board.length; diag2++)
-                if (board[diag2][board.length - diag2 - 1] != mark.toString().charAt(0))
-                    return false;
-
-
-        return true;
-    }
-
-    public int diagWin (int diag, Mark mark) {
-        int count = 0;
-
-        if (diag == 1) {
-            for (int diag1 = 0; diag1 < board.length; diag1++)
-                if (board[diag1][diag1] == mark.toString().charAt(0))
-                    count++;
         }
-        else
-            for (int diag2 = 0; diag2 < board.length; diag2++)
-                if (board[diag2][board.length - diag2 - 1] == mark.toString().charAt(0))
-                    count++;
-
-
-        return count;
+        return true;
     }
 
 
+    private boolean checkCols (Mark mark) {
+        for (int col = 0; col < 4; col++) {
+            for (int row = 0; row < board.length; row++)
+                if (board[row][col] != mark.toString().charAt(0))
+                    return false;
+            return true;
+        }
+        return true;
+    }
+    private boolean checkDiags (Mark mark) {
+        for (int diag1 = 0; diag1 < board.length; diag1++)
+            if (board[diag1][diag1] != mark.toString().charAt(0))
+                return false;
 
+        for (int diag2 = 0; diag2 < board.length; diag2++)
+            if (board[diag2][board.length - diag2 - 1] != mark.toString().charAt(0))
+                return false;
+        return true;
+    }
 
+    public boolean checkWin (Mark mark) {
+        return checkRows(mark) || checkCols(mark) || checkDiags(mark);
+    }
 
 }
