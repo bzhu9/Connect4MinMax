@@ -73,7 +73,7 @@ public class Driver {
 
 
                 System.out.println("Bot Turn");
-                ArrayList<Boolean> winBot = new ArrayList<>();
+
 
                 System.out.println(proBot.minMax(b,botMark));
                 b.markMove(proBot.theMove(),botMark);
@@ -92,7 +92,6 @@ public class Driver {
                     break;
                 }
 
-                ArrayList<Boolean> winPlayer = new ArrayList<>();
                 System.out.print("Please enter column: ");
                 col =  in.nextInt();
                 Move move = new Move(col);
@@ -107,8 +106,6 @@ public class Driver {
                 if(playerCount+ botCount ==42){
                     break;
                 }
-
-
 
             }
 
