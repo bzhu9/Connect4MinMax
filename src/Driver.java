@@ -31,7 +31,7 @@ public class Driver {
             if(ranNum == 0){
                 System.out.print("Please enter column: ");
                 col =  in.nextInt();
-                Move move = new Move(col);
+                Move move = new Move(b.getRow(col),col);
                 b.markMove(move,player);
                 b.getBoard();
 
@@ -95,7 +95,7 @@ public class Driver {
                 ArrayList<Boolean> winPlayer = new ArrayList<>();
                 System.out.print("Please enter column: ");
                 col =  in.nextInt();
-                Move move = new Move(col);
+                Move move = new Move(b.getRow(col),col);
                 b.markMove(move,player);
                 b.getBoard();
 
@@ -107,22 +107,12 @@ public class Driver {
                 if(playerCount+ botCount ==42){
                     break;
                 }
-
-
-
             }
-
             count++;
-
-
         }
         if(playerCount + botCount ==42){
 
             System.out.println("Draw!");
-
-
         }
-
-
     }
 }

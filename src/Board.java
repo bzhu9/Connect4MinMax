@@ -1,6 +1,4 @@
 public class Board {
-    private int row;
-    private int col;
     private char[][] board;// board change to a 2D array of chars
     private final char EMPTY = ' ';
 
@@ -16,6 +14,13 @@ public class Board {
         board[move.getRow() - 1][move.getCol() - 1] = mark.toString().charAt(0);
     }
 
+    public int getRow(int col) {
+        for (int i = 0; i < board.length; i++) {
+            if (board[i][col] != EMPTY)
+                return i;
+        }
+        return board.length;
+    }
 
     public void getBoard () {
 
