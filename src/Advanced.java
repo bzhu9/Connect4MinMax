@@ -17,8 +17,7 @@ public class Advanced {
         Mark bot = new Mark("Y");
 
         Mark empty = new Mark(" ");
-        ArrayList<Boolean> winPlayer = new ArrayList<>();
-        ArrayList<Boolean> winBot = new ArrayList<>();
+
         ArrayList<Boolean> cellFree = new ArrayList<>();
 
         for (int i = 1; i <=3; i++) {
