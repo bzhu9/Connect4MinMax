@@ -13,7 +13,7 @@ public class Driver {
         Mark player = new Mark("R");
         Mark botMark = new Mark("Y");
 
-        Board b = new Board(6,7);
+        Board b = new Board(4,4);
         b.getBoard();
 
         Advanced proBot = new Advanced();

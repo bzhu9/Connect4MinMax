@@ -16,7 +16,7 @@ public class Board {
 
     public int getRow(int col) {
         for (int i = 0; i < board.length; i++) {
-            if (board[i][col] != EMPTY)
+            if (board[i][col-1] != EMPTY)
                 return i;
         }
         return board.length;
@@ -70,13 +70,15 @@ public class Board {
 
 
     private boolean checkCols (Mark mark) {
-        for (int col = 0; col < 4; col++) {
+        for (int col = 0; col<board[0].length; col++) {
+            boolean temp = true;
             for (int row = 0; row < board.length; row++)
                 if (board[row][col] != mark.toString().charAt(0))
-                    return false;
-            return true;
+                    temp =  false;
+            if (temp)
+                return true;
         }
-        return true;
+        return false;
     }
     private boolean checkDiags (Mark mark) {
         for (int diag1 = 0; diag1 < board.length; diag1++)
