@@ -27,10 +27,10 @@ public class Advanced {
         }
 
 
-        if (checkWin("Y"))
+        if (board.checkWin("Y"))
             return 10;
 
-        else if (checkWin("R"))
+        else if (board.checkWin("R"))
             return -10;
 
         else if( !cellFree.contains(true))
