@@ -61,7 +61,7 @@ public class Driver {
                 }
                 botCount++;
 
-                if(playerCount+ botCount ==42){
+                if(playerCount+ botCount ==16){
                     break;
                 }
 

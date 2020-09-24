@@ -61,11 +61,14 @@ public class Board {
 
     private boolean checkRows (Mark mark) {
         for (int row = 0; row < 4; row++) {
+            boolean temp = true;
             for (int col = 0; col < board.length; col++)
                 if (board[row][col] != mark.toString().charAt(0))
-                    return false;
+                    temp =  false;
+            if (temp)
+                return true;
         }
-        return true;
+        return false;
     }
 
 
@@ -81,14 +84,16 @@ public class Board {
         return false;
     }
     private boolean checkDiags (Mark mark) {
+        boolean d1 = true;
+        boolean d2 = true;
         for (int diag1 = 0; diag1 < board.length; diag1++)
             if (board[diag1][diag1] != mark.toString().charAt(0))
-                return false;
+                d1 = false;
 
         for (int diag2 = 0; diag2 < board.length; diag2++)
             if (board[diag2][board.length - diag2 - 1] != mark.toString().charAt(0))
-                return false;
-        return true;
+                d2 =  false;
+        return d1 || d2;
     }
 
     public boolean checkWin (Mark mark) {
