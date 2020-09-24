@@ -74,8 +74,8 @@ public class Driver {
 
                 System.out.println("Bot Turn");
                 ArrayList<Boolean> winBot = new ArrayList<>();
-
-                System.out.println(proBot.minMax(b,botMark));
+                proBot.minMax(b,botMark);
+                System.out.println(proBot.theMove().getCol()+"yeeeet");
                 b.markMove(proBot.theMove(),botMark);
 
                 b.getBoard();
@@ -88,7 +88,7 @@ public class Driver {
                 }
                 botCount++;
 
-                if(playerCount+ botCount ==42){
+                if(playerCount+ botCount ==16){
                     break;
                 }
 
@@ -104,13 +104,13 @@ public class Driver {
                     break;
                 }
                 playerCount++;
-                if(playerCount+ botCount ==42){
+                if(playerCount+ botCount ==16){
                     break;
                 }
             }
             count++;
         }
-        if(playerCount + botCount ==42){
+        if(playerCount + botCount ==16){
 
             System.out.println("Draw!");
         }

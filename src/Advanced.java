@@ -11,19 +11,21 @@ public class Advanced {
         int minSoFar = Integer.MAX_VALUE;
         Move bestMoveSoFar = new Move();
         ArrayList<Move> moves = new ArrayList<>();
+        Mark empty = new Mark(" ");
 
         Mark player = new Mark("R");
         Mark bot = new Mark("Y");
 
-        Mark empty = new Mark(" ");
-
-        ArrayList<Boolean> cellFree = new ArrayList<>();
-
-        for (int i = 1; i <=3; i++) {
-            for (int j = 1; j <=3; j++) {
-                cellFree.add(board.cellFree(new Move(i,j)));
+//        System.out.println("in board");
+//        board.getBoard();
+        for (int i=1;i<=board.board[0].length;i++){
+            if (board.getRow(i)!=0){
+                Move m = new Move(board.getRow(i),i);
+//                System.out.println(m + "efan");
+                moves.add(m);
             }
         }
+//        System.out.println("cheeeeeese");
 
 
         if (board.checkWin(bot))
@@ -32,22 +34,13 @@ public class Advanced {
         else if (board.checkWin(player))
             return -10;
 
-        else if( !cellFree.contains(true))
+        else if(moves.size()==0)
             return 0;
 
 
-
-        for (int i = 1; i <=3 ; i++) {
-            for (int j = 1; j <=3 ; j++) {
-                Move m = new Move(i,j);
-                if(board.cellFree(m)){
-                    moves.add(m);
-                }
-            }
-        }
-
         for (Move m : moves) {
             board.markMove(m,playerTurn);
+//            board.getBoard();
             if (playerTurn.toString().equals("Y") ){
                 int score = minMax(board, player);
                 if (score > maxSoFar) {
@@ -61,7 +54,6 @@ public class Advanced {
                     minSoFar = score;
             }
             board.markMove(m,empty);
-
         }
 
         myMove = bestMoveSoFar;

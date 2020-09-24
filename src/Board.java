@@ -1,5 +1,5 @@
 public class Board {
-    private char[][] board;// board change to a 2D array of chars
+    public char[][] board;// board change to a 2D array of chars
     private final char EMPTY = ' ';
 
 
@@ -11,7 +11,7 @@ public class Board {
         //generate board with specified size
     }
     public void markMove(Move move, Mark mark) {
-        board[move.getRow() - 1][move.getCol() - 1] = mark.toString().charAt(0);
+        board[move.getRow() -1][move.getCol() -1] = mark.toString().charAt(0);
     }
 
     public int getRow(int col) {
