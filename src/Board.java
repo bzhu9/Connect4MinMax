@@ -27,9 +27,9 @@ public class Board {
         // display the column heading
         System.out.println();
         System.out.print("   col ");
-        for (int col = 0; col < board.length; col++) {
+        for (int col = 0; col < board[0].length; col++) {
             System.out.print(col + 1);
-            if (col < board.length - 1)
+            if (col < board[0].length - 1)
                 System.out.print(":");
         }
         System.out.println();
@@ -38,14 +38,14 @@ public class Board {
         // display the board
         for (int row = 0; row < board.length; row++) {
             System.out.print("row " + (row + 1) + ": ");
-            for (int col = 0; col < board.length; col++) {
+            for (int col = 0; col < board[0].length; col++) {
                 System.out.print(board[row][col]);
-                if (col < board.length - 1)
+                if (col < board[0].length - 1)
                     System.out.print("|");
             }
             if (row < board.length - 1) {
                 System.out.println("");
-                System.out.println("       -----");
+                System.out.println("       -------------");
             }
             else
                 System.out.println();
