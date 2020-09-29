@@ -9,10 +9,10 @@ public class Game {
         Mark player = new Mark("R");
         Mark botMark = new Mark("Y");
 
-        Board b = new Board(4, 4);
+        Board b = new Board(6, 7);
         b.getBoard();
 
-        Advanced proBot = new Advanced();
+        Advanced proBot = new Advanced("Y");
 
         int count = 0;
         int playerCount = 0;
@@ -115,21 +115,18 @@ public class Game {
 
     public void playAI(){
 
-        Mark bot2 = new Mark("R");
         Mark botMark = new Mark("Y");
+        Mark bot2 = new Mark("R");
 
-        Board b = new Board(4,4);
+        Board b = new Board(6,7);
         b.getBoard();
 
-        Advanced proBot = new Advanced();
-        Advanced proBot2 = new Advanced();
+        Advanced proBot = new Advanced("Y");
+        Advanced proBot2 = new Advanced("R");
 
         int count =0;
-        int bot2Count =0;
         int botCount = 0;
-
-
-
+        int bot2Count =0;
 
         while(count <=8){
             System.out.println("Bot Turn");
