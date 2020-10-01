@@ -59,34 +59,50 @@ public class Board {
     }
 
 
-    private boolean checkRows (Mark mark) {
-
-        for (int row = 0; row < board.length; row++) {
-            boolean temp = true;
-            for (int col = 0; col < board[0].length; col++)
-                if (board[row][col] != mark.toString().charAt(0))
-                    temp =  false;
-            if (temp)
+    private boolean checkRows (Mark mark, int column) {
+        int consecutive = 0;
+        char[] currentRow = board[getRow(column)-1];
+        for (int i = column - 4 - 1; i<column + 4 - 1; i++){
+            if (!(i >= currentRow.length || i<0)){
+                if (currentRow[i] == mark.toString().charAt(0))
+                    consecutive ++;
+                else
+                    consecutive = 0;
+            }
+            if (consecutive==4)
                 return true;
         }
+
         return false;
     }
 
 
-    private boolean checkCols (Mark mark) {
-        for (int col = 0; col<board[0].length; col++) {
-            boolean temp = true;
-            for (int row = 0; row < board.length; row++)
-                if (board[row][col] != mark.toString().charAt(0))
-                    temp =  false;
-            if (temp)
+    private boolean checkCols (Mark mark, int column) {
+        int consecutive = 0;
+        int pastRow = getRow(column)-1;
+        for (int r = pastRow-4; r<pastRow+4; r++) {
+            if (!(r>= board[0].length || r<0)) {
+                if (board[r][column] == mark.toString().charAt(0))
+                    consecutive++;
+                else
+                    consecutive = 0;
+            }
+            if (consecutive==4)
                 return true;
         }
         return false;
     }
-    private boolean checkDiags (Mark mark) {
+    private boolean checkDiags (Mark mark, int column) {
         boolean d1 = true;
         boolean d2 = true;
+        // BOTTOM LEFT TO TOP RIGHT
+        int consecutive = 0;
+        int pastRow = getRow(column)-1;
+
+        for (int r = pastRow-4, c = column -4; r<pastRow+4 && c<column + 4; r++, c++) {
+
+        }
+
         for (int diag1 = 0; diag1 < board.length; diag1++)
             if (board[diag1][diag1] != mark.toString().charAt(0))
                 d1 = false;
@@ -98,7 +114,7 @@ public class Board {
     }
 
     public boolean checkWin (Mark mark, int column) {
-        return checkRows(mark) || checkCols(mark) || checkDiags(mark);
+        return checkRows(mark, column) || checkCols(mark, column) || checkDiags(mark, column);
     }
 
 }
