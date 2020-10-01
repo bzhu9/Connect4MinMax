@@ -60,9 +60,10 @@ public class Board {
 
 
     private boolean checkRows (Mark mark) {
-        for (int row = 0; row < 4; row++) {
+
+        for (int row = 0; row < board.length; row++) {
             boolean temp = true;
-            for (int col = 0; col < board.length; col++)
+            for (int col = 0; col < board[0].length; col++)
                 if (board[row][col] != mark.toString().charAt(0))
                     temp =  false;
             if (temp)
@@ -96,7 +97,7 @@ public class Board {
         return d1 || d2;
     }
 
-    public boolean checkWin (Mark mark) {
+    public boolean checkWin (Mark mark, int column) {
         return checkRows(mark) || checkCols(mark) || checkDiags(mark);
     }
 
