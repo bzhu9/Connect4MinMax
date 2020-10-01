@@ -5,6 +5,7 @@ public class Advanced {
     private Mark player;
     private Mark bot;
     private int count = 0;
+
     public Advanced (String mark){
         bot = new Mark(mark);
         if (mark.equals("R")) {
@@ -18,12 +19,12 @@ public class Advanced {
         return myMove;
     }
 
-    public int minMax(Board board, Mark playerTurn) {
+    public int minMax(Board board, Mark playerTurn, int R) {
         int maxSoFar = Integer.MIN_VALUE;
         int minSoFar = Integer.MAX_VALUE;
         Move bestMoveSoFar = new Move();
         ArrayList<Move> moves = new ArrayList<>();
-        count++;
+
         Mark empty = new Mark(" ");
 
         for (int i=1;i<=board.board[0].length;i++){
@@ -40,22 +41,21 @@ public class Advanced {
         else if (board.checkWin(player))
             return -10;
 
-        else if(moves.size()==0)
+        else if(moves.size()==0 || R==6 )
             return 0;
 
 
         for (Move m : moves) {
             board.markMove(m,playerTurn);
-//            board.getBoard();
             if (playerTurn.toString().equals(bot.toString())){
-                int score = minMax(board, player);
+                int score = minMax(board, player, R+1);
                 if (score > maxSoFar) {
                     maxSoFar = score;
                     bestMoveSoFar = m;
                 }
             }
             else {
-                int score = minMax(board, bot);
+                int score = minMax(board, bot,R+1);
                 if(score < minSoFar)
                     minSoFar = score;
             }
