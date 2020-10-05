@@ -93,24 +93,33 @@ public class Board {
         return false;
     }
     private boolean checkDiags (Mark mark, int column) {
-        boolean d1 = true;
-        boolean d2 = true;
-        // BOTTOM LEFT TO TOP RIGHT
+        // TOP LEFT TO BOTTOM RIGHT
         int consecutive = 0;
         int pastRow = getRow(column)-1;
 
         for (int r = pastRow-4, c = column -4; r<pastRow+4 && c<column + 4; r++, c++) {
-
+            if (!(r>= board[0].length || r<0 || c>= board.length || c<0)) {
+                if (board[r][c] == mark.toString().charAt(0))
+                    consecutive++;
+                else
+                    consecutive = 0;
+            }
+            if (consecutive == 4)
+                return true;
         }
 
-        for (int diag1 = 0; diag1 < board.length; diag1++)
-            if (board[diag1][diag1] != mark.toString().charAt(0))
-                d1 = false;
+        for (int r = pastRow+4, c = column -4; r>pastRow-4 && c<column + 4; r--, c++) {
+            if (!(r>= board[0].length || r<0 || c>= board.length || c<0)) {
+                if (board[r][c] == mark.toString().charAt(0))
+                    consecutive++;
+                else
+                    consecutive = 0;
+            }
+            if (consecutive == 4)
+                return true;
+        }
 
-        for (int diag2 = 0; diag2 < board.length; diag2++)
-            if (board[diag2][board.length - diag2 - 1] != mark.toString().charAt(0))
-                d2 =  false;
-        return d1 || d2;
+        return false;
     }
 
     public boolean checkWin (Mark mark, int column) {
