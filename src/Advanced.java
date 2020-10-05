@@ -35,14 +35,14 @@ public class Advanced {
         }
 
 
-        if (board.checkWin(bot))
-            return 10;
-
-        else if (board.checkWin(player))
-            return -10;
-
-        else if(moves.size()==0 || R==6 )
-            return 0;
+//        if (board.checkWin(bot))
+//            return 10;
+//
+//        else if (board.checkWin(player))
+//            return -10;
+//
+//        else if(moves.size()==0 || R==6 )
+//            return 0;
 
 
         for (Move m : moves) {
