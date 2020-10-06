@@ -61,8 +61,9 @@ public class Board {
 
     private boolean checkRows (Mark mark, int column) {
         int consecutive = 0;
+        System.out.println("col: "+ column);
         System.out.println("loopy" + (getRow(column)-1));
-        char[] currentRow = board[getRow(column)+1];
+        char[] currentRow = board[getRow(column)];
         for (int i = column - 4 - 1; i<column + 4 - 1; i++){
             if (!(i >= currentRow.length || i<0)){
                 if (currentRow[i] == mark.toString().charAt(0))
@@ -100,7 +101,7 @@ public class Board {
         int pastRow = getRow(column)+1;
 
         for (int r = pastRow-4, c = column -4; r<pastRow+4 && c<column + 4; r++, c++) {
-            if (!(r>= board[0].length || r<0 || c>= board.length || c<0)) {
+            if (!(r>= board.length || r<0 || c>= board[0].length || c<0)) {
                 if (board[r][c] == mark.toString().charAt(0))
                     consecutive++;
                 else
@@ -111,7 +112,7 @@ public class Board {
         }
         consecutive = 0;
         for (int r = pastRow+2, c = column -4; r>pastRow-6 && c<column + 4; r--, c++) {
-            if (!(r>= board[0].length || r<0 || c>= board.length || c<0)) {
+            if (!(r>= board.length || r<0 || c>= board[0].length || c<0)) {
                 if (board[r][c] == mark.toString().charAt(0))
                     consecutive++;
                 else

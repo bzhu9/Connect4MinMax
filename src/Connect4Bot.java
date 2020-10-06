@@ -13,7 +13,7 @@ public class Connect4Bot {
     public Move theMove() {
         return myMove;
     }
-    public int minMax(Board b, Mark turn, int numRec, int lastCol) {
+    public int minMax(Board b, Mark turn, int numRec) {
         int maxSoFar = Integer.MIN_VALUE;
         int minSoFar = Integer.MAX_VALUE;
         int time = numRec;
@@ -24,17 +24,17 @@ public class Connect4Bot {
         Move bestMoveSoFar = new Move();
         ArrayList<Move> moves = new ArrayList<>();
 
-        for (BoardWithMove win : winnable) {
-            Board winBoard = win.getBoard();
-            if (sameBoard(b, winBoard)) {
-                myMove = win.getMove();
-                return 10;
-            }
-        }
-        if (isEmpty(b)){
-            myMove = new Move(b.board.length,b.board[0].length/2);
-            return 10;
-        }
+//        for (BoardWithMove win : winnable) {
+//            Board winBoard = win.getBoard();
+//            if (sameBoard(b, winBoard)) {
+//                myMove = win.getMove();
+//                return 10;
+//            }
+//        }
+//        if (isEmpty(b)){
+//            myMove = new Move(b.board.length,b.board[0].length/2);
+//            return 10;
+//        }
 
         for (int i = 1; i <= b.board[0].length; i++) {
             if (b.getRow(i) != 0) {
@@ -42,26 +42,29 @@ public class Connect4Bot {
                 moves.add(m);
             }
         }
-        if (b.checkWin(bot,lastCol))
-            return 10;
-        else if (b.checkWin(player,lastCol))
-            return -10;
+//        if (b.checkWin(bot,lastCol))
+//            return 10;
+//        else if (b.checkWin(player,lastCol))
+//            return -10;
 //        else if ()
-        else if (moves.size() == 0 || time==6)
+        if (moves.size() == 0 || time==7)
             return 0;
 
 
         for (Move m : moves) {
             b.markMove(m, turn);
-            int col = m.getCol();
+            if (b.checkWin(bot,m.getCol()))
+                return 10;
+            else if (b.checkWin(player,m.getCol()))
+                return -10;
             if (turn.toString().equals("Y")) {
-                int score = minMax(b, player,time+1,col);
+                int score = minMax(b, player,time+1);
                 if (score > maxSoFar) {
                     maxSoFar = score;
                     bestMoveSoFar = m;
                 }
             } else {
-                int score = minMax(b, bot,time+1,col);
+                int score = minMax(b, bot,time+1);
                 if (score < minSoFar)
                     minSoFar = score;
             }
@@ -70,9 +73,9 @@ public class Connect4Bot {
 
         myMove = bestMoveSoFar;
         if (turn.toString().equals("Y")) {
-            if (maxSoFar == 10) {
-                winnable.add(new BoardWithMove(myMove,b));
-            }
+//            if (maxSoFar == 10) {
+//                winnable.add(new BoardWithMove(myMove,b));
+//            }
             return maxSoFar;
         }
         else {

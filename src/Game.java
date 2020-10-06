@@ -11,7 +11,7 @@ public class Game {
         Board b = new Board(6, 7);
         b.getBoard();
 
-        Advanced proBot = new Advanced("Y");
+        Connect4Bot proBot = new Connect4Bot();
 
         int count = 0;
         int playerCount = 0;
@@ -45,6 +45,7 @@ public class Game {
 
                 System.out.println(proBot.minMax(b, botMark,0));
                 Move m = proBot.theMove();
+                System.out.println(m);
                 b.markMove(m, botMark);
 
 
