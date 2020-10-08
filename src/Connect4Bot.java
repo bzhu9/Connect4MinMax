@@ -17,24 +17,10 @@ public class Connect4Bot {
         int maxSoFar = Integer.MIN_VALUE;
         int minSoFar = Integer.MAX_VALUE;
         int time = numRec;
-//        if (time==2){
-//            System.out.println("cadshgjhmbnvbfsretrtghsdertrjhbnvcdrtytjhjvcxsaerrtgh");
-//        }
-//        System.out.println(time);
+
         Move bestMoveSoFar = new Move();
         ArrayList<Move> moves = new ArrayList<>();
 
-//        for (BoardWithMove win : winnable) {
-//            Board winBoard = win.getBoard();
-//            if (sameBoard(b, winBoard)) {
-//                myMove = win.getMove();
-//                return 10;
-//            }
-//        }
-//        if (isEmpty(b)){
-//            myMove = new Move(b.board.length,b.board[0].length/2);
-//            return 10;
-//        }
         if (numRec!=0) {
             if (b.checkWin(bot, lastCol))
                 return 10;
@@ -48,11 +34,7 @@ public class Connect4Bot {
                 moves.add(m);
             }
         }
-//        if (b.checkWin(bot,lastCol))
-//            return 10;
-//        else if (b.checkWin(player,lastCol))
-//            return -10;
-//        else if ()
+
         if (moves.size() == 0 || time==7)
             return 0;
 
@@ -76,9 +58,7 @@ public class Connect4Bot {
             System.out.println("BIG PLOOPY");
         myMove = bestMoveSoFar;
         if (turn.toString().equals("Y")) {
-//            if (maxSoFar == 10) {
-//                winnable.add(new BoardWithMove(myMove,b));
-//            }
+
             System.out.println(myMove + ": " + maxSoFar);
             return maxSoFar;
         }

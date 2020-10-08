@@ -12,7 +12,6 @@ public class Game {
         b.getBoard();
 
         Connect4Bot proBot = new Connect4Bot();
-        System.out.println("defualt: " + proBot.theMove());
         int count = 0;
         int playerCount = 0;
         int botCount = 0;
