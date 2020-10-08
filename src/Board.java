@@ -61,8 +61,6 @@ public class Board {
 
     private boolean checkRows (Mark mark, int column) {
         int consecutive = 0;
-        System.out.println("col: "+ column);
-        System.out.println("loopy" + (getRow(column)-1));
         char[] currentRow = board[getRow(column)];
         for (int i = column - 4 - 1; i<column + 4 - 1; i++){
             if (!(i >= currentRow.length || i<0)){

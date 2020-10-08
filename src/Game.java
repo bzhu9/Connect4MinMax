@@ -12,7 +12,7 @@ public class Game {
         b.getBoard();
 
         Connect4Bot proBot = new Connect4Bot();
-
+        System.out.println("defualt: " + proBot.theMove());
         int count = 0;
         int playerCount = 0;
         int botCount = 0;
@@ -43,9 +43,9 @@ public class Game {
 
                 System.out.println("Bot Turn");
 
-                System.out.println(proBot.minMax(b, botMark,0));
+                System.out.println(proBot.minMax(b, botMark,0,0));
                 Move m = proBot.theMove();
-                System.out.println(m);
+                System.out.println("BOT MOVING HERE:" + m);
                 b.markMove(m, botMark);
 
 
@@ -71,7 +71,7 @@ public class Game {
 
                 System.out.println("Bot Turn");
 
-                System.out.println(proBot.minMax(b, botMark,0));
+                System.out.println(proBot.minMax(b, botMark,0,0));
                 Move m = proBot.theMove();
                 b.markMove(m, botMark);
 

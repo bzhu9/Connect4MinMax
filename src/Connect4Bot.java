@@ -13,7 +13,7 @@ public class Connect4Bot {
     public Move theMove() {
         return myMove;
     }
-    public int minMax(Board b, Mark turn, int numRec) {
+    public int minMax(Board b, Mark turn, int numRec, int lastCol) {
         int maxSoFar = Integer.MIN_VALUE;
         int minSoFar = Integer.MAX_VALUE;
         int time = numRec;
@@ -35,6 +35,12 @@ public class Connect4Bot {
 //            myMove = new Move(b.board.length,b.board[0].length/2);
 //            return 10;
 //        }
+        if (numRec!=0) {
+            if (b.checkWin(bot, lastCol))
+                return 10;
+            else if (b.checkWin(player, lastCol))
+                return -10;
+        }
 
         for (int i = 1; i <= b.board[0].length; i++) {
             if (b.getRow(i) != 0) {
@@ -53,32 +59,31 @@ public class Connect4Bot {
 
         for (Move m : moves) {
             b.markMove(m, turn);
-            if (b.checkWin(bot,m.getCol()))
-                return 10;
-            else if (b.checkWin(player,m.getCol()))
-                return -10;
             if (turn.toString().equals("Y")) {
-                int score = minMax(b, player,time+1);
+                int score = minMax(b, player,time+1, m.getCol());
                 if (score > maxSoFar) {
                     maxSoFar = score;
                     bestMoveSoFar = m;
                 }
             } else {
-                int score = minMax(b, bot,time+1);
+                int score = minMax(b, bot,time+1, m.getCol());
                 if (score < minSoFar)
                     minSoFar = score;
             }
             b.markMove(m, empty);
         }
-
+        if (numRec==0)
+            System.out.println("BIG PLOOPY");
         myMove = bestMoveSoFar;
         if (turn.toString().equals("Y")) {
 //            if (maxSoFar == 10) {
 //                winnable.add(new BoardWithMove(myMove,b));
 //            }
+            System.out.println(myMove + ": " + maxSoFar);
             return maxSoFar;
         }
         else {
+            System.out.println(myMove + ": " + minSoFar);
             return minSoFar;
         }
     }
