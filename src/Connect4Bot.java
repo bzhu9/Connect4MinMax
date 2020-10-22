@@ -231,6 +231,7 @@ public class Connect4Bot {
         b.getBoard();
         System.out.println(b.getRow(6));
         System.out.println(connect4Bot.checkThree(b,connect4Bot.player,5));
+
 //        System.out.println(b.checkWin(new Mark("Y"),4));
 
     }
