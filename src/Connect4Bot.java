@@ -17,10 +17,6 @@ public class Connect4Bot {
         int maxSoFar = Integer.MIN_VALUE;
         int minSoFar = Integer.MAX_VALUE;
         int time = numRec;
-//        if (time==2){
-//            System.out.println("cadshgjhmbnvbfsretrtghsdertrjhbnvcdrtytjhjvcxsaerrtgh");
-//        }
-//        System.out.println(time);
         Move bestMoveSoFar = new Move();
         ArrayList<Move> moves = new ArrayList<>();
 
@@ -36,25 +32,41 @@ public class Connect4Bot {
 //            return 10;
 //        }
         if (numRec!=0) {
-            if (b.checkWin(bot, lastCol))
+            if (b.checkWin(bot, lastCol)) {
                 return 10;
-            else if (b.checkWin(player, lastCol))
+            }
+            else if (b.checkWin(player, lastCol)) {
                 return -10;
+            }
+            else if (nextWin(b)){
+                return 9;
+            }
+            else if (checkThree(b,turn,lastCol)){
+                if (turn==player){
+                    return -3;
+                }
+                else {
+                    return 3;
+                }
+            }
         }
-
+        boolean isempty = true;
         for (int i = 1; i <= b.board[0].length; i++) {
             if (b.getRow(i) != 0) {
                 Move m = new Move(b.getRow(i), i);
                 moves.add(m);
+                if (b.getRow(i)!=6){
+                    isempty=false;
+                }
             }
         }
-//        if (b.checkWin(bot,lastCol))
-//            return 10;
-//        else if (b.checkWin(player,lastCol))
-//            return -10;
-//        else if ()
-        if (moves.size() == 0 || time==7)
+        if (moves.size() == 0 || time==7) {
             return 0;
+        }
+        else if (isempty){
+            myMove=new Move(6,4);
+            return 10;
+        }
 
 
         for (Move m : moves) {
@@ -72,18 +84,16 @@ public class Connect4Bot {
             }
             b.markMove(m, empty);
         }
-        if (numRec==0)
-            System.out.println("BIG PLOOPY");
         myMove = bestMoveSoFar;
         if (turn.toString().equals("Y")) {
 //            if (maxSoFar == 10) {
 //                winnable.add(new BoardWithMove(myMove,b));
 //            }
-            System.out.println(myMove + ": " + maxSoFar);
+            //System.out.println(myMove + ": " + maxSoFar);
             return maxSoFar;
         }
         else {
-            System.out.println(myMove + ": " + minSoFar);
+            //System.out.println(myMove + ": " + minSoFar);
             return minSoFar;
         }
     }
@@ -108,48 +118,120 @@ public class Connect4Bot {
         }
         return true;
     }
-    public boolean twoWin(Board b){
+    private boolean nextWin(Board b){
         for (int col=1;col<=b.board[0].length;col++){
             Board tempB = b;
             Board temp2 = b;
             int row = b.getRow(col);
+            if (row<=1){
+                break;
+            }
             tempB.markMove(new Move(row,col),bot);
             int nextRow = tempB.getRow(col);
-            tempB.getBoard();
-            System.out.println("sfdgfhbcvxsderfhg");
-            temp2.markMove(new Move(row,col),player);
-            temp2.markMove(new Move(nextRow,col),bot);
-            temp2.getBoard();
-            System.out.println("helllllllllooooooooooooooooo");
-            if (tempB.checkWin(bot,col)&&temp2.checkWin(bot,col)){
-                return true;
+            if (checkThree(tempB,bot,col)){
+
+                temp2.markMove(new Move(row,col),player);
+                temp2.markMove(new Move(nextRow,col),bot);
+                if (temp2.checkWin(bot,col)){
+                    tempB.markMove(new Move(row,col),empty);
+
+                    temp2.markMove(new Move(row,col),empty);
+                    temp2.markMove(new Move(nextRow,col),empty);
+                    return true;
+                }
+
+                temp2.markMove(new Move(row,col),empty);
+                temp2.markMove(new Move(nextRow,col),empty);
             }
+
             tempB.markMove(new Move(row,col),empty);
-
-            temp2.markMove(new Move(row,col),empty);
-            temp2.markMove(new Move(nextRow,col),empty);
-
         }
         return false;
+    }
+    private boolean check3Rows (Board b,Mark mark, int column) {
+        int consecutive = 0;
+        int space = 0;
+        char[] currentRow = b.board[b.getRow(column)];
+        for (int i = column - 4; i<column + 4 - 1; i++){
+            if (!(i >= currentRow.length || i<0)){
+                if (currentRow[i] == mark.toString().charAt(0))
+                    consecutive ++;
+                else if (space==0&&consecutive!=0)
+                    space++;
+                else
+                    consecutive = 0;
+            }
+            if (consecutive==3)
+                return true;
+        }
+
+        return false;
+    }
+    private boolean check3Cols (Board b, Mark mark, int column) {
+        int consecutive = 0;
+        int pastRow = b.getRow(column)+1;
+        for (int r = pastRow-4; r<pastRow+4; r++) {
+
+            if (!(r>= b.board.length || r<0)) {
+                if (b.board[r][column-1] == mark.toString().charAt(0))
+                    consecutive++;
+                else
+                    consecutive = 0;
+            }
+            if (consecutive==3)
+                return true;
+        }
+        return false;
+    }
+    private boolean check3Diags (Board b, Mark mark, int column) {
+        // TOP LEFT TO BOTTOM RIGHT
+        int consecutive = 0;
+        int pastRow = b.getRow(column)+1;
+        int space = 0;
+
+        for (int r = pastRow-4, c = column -4; r<pastRow+4 && c<column + 4; r++, c++) {
+            if (!(r>= b.board.length || r<0 || c>= b.board[0].length || c<0)) {
+                if (b.board[r][c] == mark.toString().charAt(0))
+                    consecutive++;
+                else if (space==0)
+                    space++;
+                else
+                    consecutive = 0;
+            }
+            if (consecutive == 3)
+                return true;
+        }
+        consecutive = 0;
+        for (int r = pastRow+2, c = column -4; r>pastRow-6 && c<column + 4; r--, c++) {
+            if (!(r>= b.board.length || r<0 || c>= b.board[0].length || c<0)) {
+                if (b.board[r][c] == mark.toString().charAt(0))
+                    consecutive++;
+                else
+                    consecutive = 0;
+            }
+            if (consecutive == 3)
+                return true;
+        }
+
+        return false;
+    }
+    public boolean checkThree (Board b, Mark mark, int column) {
+        return check3Rows(b,mark, column) || check3Cols(b,mark, column) || check3Diags(b,mark, column);
     }
 
     public static void main(String[] args) {
         Board b = new Board(6,7);
         b.getBoard();
-//        b.markMove(new Move(6,1),new Mark("Y"));
-//        b.markMove(new Move(5,1),new Mark("Y"));
-        b.markMove(new Move(4,4),new Mark("Y"));
-        b.markMove(new Move(3,3),new Mark("Y"));
-//        b.markMove(new Move(4,3),new Mark("Y"));
-//        b.markMove(new Move(5,4),new Mark("Y"));
+        b.markMove(new Move(6,4),new Mark("R"));
+        b.markMove(new Move(6,6),new Mark("R"));
+        b.markMove(new Move(6,7),new Mark("R"));
+
         b.getBoard();
         Connect4Bot connect4Bot = new Connect4Bot();
         b.getBoard();
-        b.markMove(new Move(2,2),new Mark("Y"));
-        b.markMove(new Move(1,1),new Mark("Y"));
-        b.getBoard();
-        System.out.println(b.getRow(4));
-        System.out.println(b.checkWin(new Mark("Y"),4));
+        System.out.println(b.getRow(6));
+        System.out.println(connect4Bot.checkThree(b,connect4Bot.player,5));
+//        System.out.println(b.checkWin(new Mark("Y"),4));
 
     }
 }
