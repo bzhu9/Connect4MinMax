@@ -44,7 +44,6 @@ public class Game {
 
                 System.out.println(proBot.minMax(b, botMark,0,0));
                 Move m = proBot.theMove();
-                System.out.println("BOT MOVING HERE:" + m);
                 b.markMove(m, botMark);
 
 

@@ -38,12 +38,15 @@ public class Connect4Bot {
             else if (b.checkWin(player, lastCol)) {
                 return -10;
             }
-//            else if (nextWin(b)){
-//                return 9;
-//            }
+            else if (nextWin(b)){
+                return 9;
+            }
+            else if (nextPlayerWin(b)){
+                return -11;
+            }
             else if (checkThree(b,turn)){
                 if (turn==player){
-                    return -3;
+                    return -13;
                 }
                 else {
                     return 3;
@@ -148,6 +151,36 @@ public class Connect4Bot {
         }
         return false;
     }
+    private boolean nextPlayerWin(Board b){
+        for (int col=1;col<=b.board[0].length;col++){
+            Board tempB = b;
+            Board temp2 = b;
+            int row = b.getRow(col);
+            if (row<=1){
+                break;
+            }
+            tempB.markMove(new Move(row,col),player);
+            int nextRow = tempB.getRow(col);
+            if (checkThree(tempB,player)){
+
+                temp2.markMove(new Move(row,col),bot);
+                temp2.markMove(new Move(nextRow,col),player);
+                if (temp2.checkWin(player,col)){
+                    tempB.markMove(new Move(row,col),empty);
+
+                    temp2.markMove(new Move(row,col),empty);
+                    temp2.markMove(new Move(nextRow,col),empty);
+                    return true;
+                }
+
+                temp2.markMove(new Move(row,col),empty);
+                temp2.markMove(new Move(nextRow,col),empty);
+            }
+
+            tempB.markMove(new Move(row,col),empty);
+        }
+        return false;
+    }
     private boolean check3Rows (Board b,Mark mark, int column) {
         int consecutive = 0;
         int space = 0;
@@ -162,7 +195,6 @@ public class Connect4Bot {
                     consecutive = 0;
             }
             if (consecutive==3) {
-                System.out.println(currentRow[i]+"   sfgded  "+i);
                 return true;
             }
         }
@@ -182,7 +214,6 @@ public class Connect4Bot {
             }
             if (consecutive==3) {
 
-                System.out.println(r+"   sfgded  "+column);
                 return true;
             }
         }
@@ -204,7 +235,6 @@ public class Connect4Bot {
                     consecutive = 0;
             }
             if (consecutive == 3) {
-                System.out.println(r+"    asfhgnvbcvsfegf "+column);
                 return true;
             }
         }
@@ -220,8 +250,6 @@ public class Connect4Bot {
                     consecutive = 0;
             }
             if (consecutive == 3) {
-
-                System.out.println(r+"    asfhgnvbcvsfegf "+column);
                 return true;
             }
         }
